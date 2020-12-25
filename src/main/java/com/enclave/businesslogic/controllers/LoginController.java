@@ -28,8 +28,15 @@ public class LoginController {
     @Autowired
     private JwtUtil jwtTokenUtil;
 
+    @RequestMapping(value = "/hello", method = RequestMethod.GET)
+    @CrossOrigin(origins = "http://localhost:4200")
+    public String greeting(){
+        return "Hello world";
+    }
+
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
         try {
             authenticationManager.authenticate(
@@ -47,6 +54,7 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @CrossOrigin(origins = "http://localhost:4200")
     public User saveUser(@RequestBody User user){
         User userObject =null;
         userObject = userService.save(user);

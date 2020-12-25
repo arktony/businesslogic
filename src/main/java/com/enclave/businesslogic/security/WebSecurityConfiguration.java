@@ -1,5 +1,6 @@
 package com.enclave.businesslogic.security;
 
+import com.enclave.businesslogic.filters.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,9 +10,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -19,6 +22,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private UserDetailsService userDetailsService;
+
+	@Autowired
+	private JwtRequestFilter jwtRequestFilter;
 
 	@Bean
 	public PasswordEncoder passwordEncoder(){
@@ -43,15 +49,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.csrf().disable()
 		.authorizeRequests()
 		 .antMatchers("/authenticate","/register").permitAll()
-		 .anyRequest().authenticated();
+		 .anyRequest().authenticated()
+		.and().sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
 	}
-
-	@Override
-	public void configure(WebSecurity web) throws Exception {
-		web
-				.ignoring()
-				.antMatchers("/resources/**", "/static/**", "/stylesheets/**", "/javascript/**", "/data/**", "/images/**", "/vendor/**");
-	}
-
 }
