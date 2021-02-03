@@ -20,7 +20,7 @@ public class UserService {
         user.setPassword(encodedPassword);
 
         Authority authority = new Authority();
-        authority.setAuthority("ROLE_USER");
+        authority.setAuthority("ROLE_ADMIN");
         authority.setUser(user);
 
         user.getAuthorities().add(authority);

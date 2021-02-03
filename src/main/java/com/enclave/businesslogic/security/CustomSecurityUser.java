@@ -14,12 +14,13 @@ public class CustomSecurityUser extends User implements UserDetails {
     }
 
     public CustomSecurityUser(User user) {
-        this.setAuthorities(user.getAuthorities());
         this.setId(user.getId());
         this.setFirstName(user.getFirstName());
         this.setLastName(user.getLastName());
         this.setUsername(user.getUsername());
+        this.setPhone(user.getPhone());
         this.setPassword(user.getPassword());
+        this.setAuthorities(user.getAuthorities());
     }
 
     @Override
