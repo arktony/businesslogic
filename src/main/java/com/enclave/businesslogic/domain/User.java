@@ -4,6 +4,7 @@ import com.enclave.businesslogic.security.Authority;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -13,23 +14,29 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String firstName;
     private String lastName;
     private String username;
     private String phone;
     private String password;
+    private String status;
+    @ManyToOne
+    private Business business;
+    @OneToMany(mappedBy = "user")
+    private List<Vehicle> vehicle;
 
     public User() {
     }
 
-    public User(Long id, String firstName, String lastName, String username, String phone, String password, Set<Authority> authorities) {
+    public User(Long id, String firstName, String lastName, String username, String phone, String password, String status, Business business, Set<Authority> authorities) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.phone = phone;
         this.password = password;
+        this.status = status;
+        this.business = business;
         this.authorities = authorities;
     }
 
@@ -84,6 +91,22 @@ public class User {
         this.password = password;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Business getBusiness() {
+        return business;
+    }
+
+    public void setBusiness(Business business) {
+        this.business = business;
+    }
+
     public Set<Authority> getAuthorities() {
         return authorities;
     }
@@ -101,6 +124,8 @@ public class User {
                 ", username='" + username + '\'' +
                 ", phone='" + phone + '\'' +
                 ", password='" + password + '\'' +
+                ", status='" + status + '\'' +
+                ", business=" + business +
                 ", authorities=" + authorities +
                 '}';
     }

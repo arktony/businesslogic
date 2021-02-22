@@ -2,7 +2,9 @@ package com.enclave.businesslogic.controllers;
 
 import com.enclave.businesslogic.domain.AuthenticationRequest;
 import com.enclave.businesslogic.domain.AuthenticationResponse;
+import com.enclave.businesslogic.domain.Business;
 import com.enclave.businesslogic.domain.User;
+import com.enclave.businesslogic.service.BusinessService;
 import com.enclave.businesslogic.service.UserDetailsServiceImpl;
 import com.enclave.businesslogic.service.UserService;
 import com.enclave.businesslogic.utils.JwtUtil;
@@ -16,6 +18,9 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class LoginController {
+    @Autowired
+    private BusinessService businessService;
+
     @Autowired
     private UserService userService;
 
@@ -51,11 +56,20 @@ public class LoginController {
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
 
+    @RequestMapping(value = "/onboard", method = RequestMethod.POST)
+    @CrossOrigin(origins = "http://localhost:4200")
+    public Business createBusiness(@RequestBody Business business) {
+        Business businessObject = new Business();
+        businessObject = businessService.createBusiness(business);
+        System.out.println(businessObject);
+        return businessObject;
+    }
+
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @CrossOrigin(origins = "http://localhost:4200")
     public User saveUser(@RequestBody User user) {
-        User userObject = null;
+        User userObject = new User();
         userObject = userService.save(user);
-        return null;
+        return userObject;
     }
 }
