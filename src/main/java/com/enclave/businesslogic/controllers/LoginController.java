@@ -68,7 +68,9 @@ public class LoginController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @CrossOrigin(origins = "http://localhost:4200")
     public User saveUser(@RequestBody User user) {
+        System.out.println("This user object" + user);
         User userObject = new User();
+//        userObject.setBusiness(user.setBusiness());
         userObject = userService.save(user);
         return userObject;
     }
