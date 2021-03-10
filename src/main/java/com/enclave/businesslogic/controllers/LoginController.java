@@ -14,13 +14,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 public class LoginController {
-    @Autowired
-    private BusinessService businessService;
-
     @Autowired
     private UserService userService;
 
@@ -33,14 +31,8 @@ public class LoginController {
     @Autowired
     private JwtUtil jwtTokenUtil;
 
-    @RequestMapping(value = "/hello", method = RequestMethod.GET)
-    @CrossOrigin(origins = "http://localhost:4200")
-    public String greeting() {
-        return "Hello world";
-    }
-
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-    @CrossOrigin(origins = "http://localhost:4200")
+//    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
         try {
             authenticationManager.authenticate(
@@ -56,22 +48,11 @@ public class LoginController {
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
 
-    @RequestMapping(value = "/onboard", method = RequestMethod.POST)
-    @CrossOrigin(origins = "http://localhost:4200")
-    public Business createBusiness(@RequestBody Business business) {
-        Business businessObject = new Business();
-        businessObject = businessService.createBusiness(business);
-        System.out.println(businessObject);
-        return businessObject;
-    }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    @CrossOrigin(origins = "http://localhost:4200")
-    public User saveUser(@RequestBody User user) {
-        System.out.println("This user object" + user);
-        User userObject = new User();
-//        userObject.setBusiness(user.setBusiness());
-        userObject = userService.save(user);
-        return userObject;
+//    @CrossOrigin(origins = "http://localhost:4200")
+    public User saveUser(@RequestBody User user, Business business) {
+        user = userService.save(user);
+        return user;
     }
 }

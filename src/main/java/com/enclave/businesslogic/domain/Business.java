@@ -1,6 +1,8 @@
 package com.enclave.businesslogic.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
@@ -9,10 +11,15 @@ public class Business {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotBlank
     private String name;
+    @NotBlank
+    @Email
     private String email;
     private String type;
     private String address;
+    @NotBlank
     private String phone;
     private String bondNo;
     private int bondInForce;
