@@ -3,6 +3,7 @@ package com.enclave.businesslogic.domain;
 import com.enclave.businesslogic.security.Authority;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -16,8 +17,10 @@ public class User {
     private Long id;
     private String firstName;
     private String lastName;
+    @NotBlank
     private String username;
     private String phone;
+    @NotBlank
     private String password;
     private String status;
     @ManyToOne
@@ -115,18 +118,5 @@ public class User {
         this.authorities = authorities;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", username='" + username + '\'' +
-                ", phone='" + phone + '\'' +
-                ", password='" + password + '\'' +
-                ", status='" + status + '\'' +
-                ", business=" + business +
-                ", authorities=" + authorities +
-                '}';
-    }
+
 }

@@ -134,20 +134,5 @@ public class Business {
         this.vehicle = vehicle;
     }
 
-    @Override
-    public String toString() {
-        return "Business{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", type='" + type + '\'' +
-                ", address='" + address + '\'' +
-                ", phone='" + phone + '\'' +
-                ", bondNo='" + bondNo + '\'' +
-                ", bondInForce=" + bondInForce +
-                ", status='" + status + '\'' +
-                ", user=" + user +
-                ", vehicle=" + vehicle +
-                '}';
-    }
+
 }

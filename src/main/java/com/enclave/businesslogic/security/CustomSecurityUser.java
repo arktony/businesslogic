@@ -21,6 +21,7 @@ public class CustomSecurityUser extends User implements UserDetails {
         this.setPhone(user.getPhone());
         this.setPassword(user.getPassword());
         this.setAuthorities(user.getAuthorities());
+        this.setBusiness(user.getBusiness());
     }
 
     @Override

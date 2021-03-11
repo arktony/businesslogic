@@ -73,7 +73,7 @@
         </p>
     </header><!-- form -->
     <form class="auth-form" action="#" th:action="@{/auth-signup}" th:object="${business}" method="post">
-<!--        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
         <!-- .form-group -->
         <div class="form-group">
             <div th:if="${#fields.hasErrors('name')}" class="form-label-group">Name errors</div>

@@ -7,28 +7,10 @@
   <!-- Begin SEO tag -->
   <title> Sign In | ArkBonds </title>
   <meta property="og:title" content="Sign In">
-  <meta name="author" content="Beni Arisandi">
+  <meta name="author" content="Anthony Tumwesigye">
   <meta property="og:locale" content="en_US">
-  <meta name="description" content="Responsive admin theme build on top of Bootstrap 4">
-  <meta property="og:description" content="Responsive admin theme build on top of Bootstrap 4">
-  <link rel="canonical" href="https://uselooper.com">
-  <meta property="og:url" content="https://uselooper.com">
-  <meta property="og:site_name" content="Looper - Bootstrap 4 Admin Theme">
-  <script type="application/ld+json">
-    {
-      "name": "Looper - Bootstrap 4 Admin Theme",
-      "description": "Responsive admin theme build on top of Bootstrap 4",
-      "author":
-      {
-        "@type": "Person",
-        "name": "Beni Arisandi"
-      },
-      "@type": "WebSite",
-      "url": "",
-      "headline": "Sign In",
-      "@context": "http://schema.org"
-    }
-  </script><!-- End SEO tag -->
+  <meta property="og:site_name" content="ArkBond">
+
   <!-- Favicons -->
   <link rel="apple-touch-icon" sizes="144x144" href="assets/apple-touch-icon.png">
   <link rel="shortcut icon" href="assets/favicon.ico">
@@ -72,17 +54,21 @@
     <p> Don't have a account? <a href="auth-signup.html">Create One</a>
     </p>
   </header><!-- form -->
-  <form class="auth-form">
+  <form class="auth-form" action="#" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    <div th:if="${SPRING_SECURITY_LAST_EXCEPTION != null}" class="danger form-label-group">
+      <span th:text="${SPRING_SECURITY_LAST_EXCEPTION.message}"></span>
+    </div>
     <!-- .form-group -->
     <div class="form-group">
       <div class="form-label-group">
-        <input type="text" id="inputUser" class="form-control" placeholder="Username" autofocus=""> <label for="inputUser">Username</label>
+        <input type="email" name="username" id="username" class="form-control" placeholder="Email" autofocus=""> <label for="username">Email</label>
       </div>
     </div><!-- /.form-group -->
     <!-- .form-group -->
     <div class="form-group">
       <div class="form-label-group">
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password"> <label for="inputPassword">Password</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password"> <label for="inputPassword">Password</label>
       </div>
     </div><!-- /.form-group -->
     <!-- .form-group -->

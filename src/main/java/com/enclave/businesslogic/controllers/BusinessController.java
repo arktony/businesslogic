@@ -37,6 +37,7 @@ public class BusinessController {
             business = businessService.createBusiness(business);
             user.setUsername(business.getEmail());
             user.setPassword("12345");
+            user.setPhone(business.getPhone());
             user.setBusiness(business);
             userService.save(user);
             return "index";
