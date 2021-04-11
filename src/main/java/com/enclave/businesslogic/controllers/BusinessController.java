@@ -32,15 +32,16 @@ public class BusinessController {
         if (bindingResult.hasErrors()) {
             return "auth-signup";
         }
+            business = businessService.createBusiness(business);
+
             //Creating a new user object to save new user on business account creation
             User user = new User();
-            business = businessService.createBusiness(business);
             user.setUsername(business.getEmail());
             user.setPassword("12345");
             user.setPhone(business.getPhone());
             user.setBusiness(business);
             userService.save(user);
-            return "index";
+            return "redirect:/index";
 
     }
 }

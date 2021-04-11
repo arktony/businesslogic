@@ -1,7 +1,11 @@
 package com.enclave.businesslogic.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "vehicle")
@@ -10,22 +14,42 @@ public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDate arrDate;
+    @NotBlank
+    @Basic
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyy-MM-dd")
+    private java.util.Date arrDate;
     private String hsCode;
     private String irNo;
     private String keyNo;
     private String specCode;
+    @NotBlank
     private String t1No;
-    private LocalDate t1Date;
+    @NotBlank
+    @Basic
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyy-MM-dd")
+    private java.util.Date t1Date;
     private String im7No;
-    private LocalDate im7Date;
+    @Basic
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyy-MM-dd")
+    private java.util.Date im7Date;
+    @NotBlank
     private String importer;
+    @NotBlank
     private String clearAgent;
+    @NotBlank
     private String bodyDesc;
     private String cc;
+    @NotBlank
     private int year;
-    private Boolean bif;
+    @NotBlank
+    private Double bif;
+    @NotBlank
     private String chassisNo;
+    @NotBlank
+    private String make;
     private String remarks;
     private String status;
     @ManyToOne
@@ -36,6 +60,31 @@ public class Vehicle {
     public Vehicle() {
     }
 
+    public Vehicle(Long id, Date arrDate, String hsCode, String irNo, String keyNo, String specCode, @NotBlank String t1No, Date t1Date, String im7No, Date im7Date, @NotBlank String importer, @NotBlank String clearAgent, @NotBlank String bodyDesc, String cc, @NotBlank int year, @NotBlank Double bif, @NotBlank String chassisNo, @NotBlank String make, String remarks, String status, User user, Business business) {
+        this.id = id;
+        this.arrDate = arrDate;
+        this.hsCode = hsCode;
+        this.irNo = irNo;
+        this.keyNo = keyNo;
+        this.specCode = specCode;
+        this.t1No = t1No;
+        this.t1Date = t1Date;
+        this.im7No = im7No;
+        this.im7Date = im7Date;
+        this.importer = importer;
+        this.clearAgent = clearAgent;
+        this.bodyDesc = bodyDesc;
+        this.cc = cc;
+        this.year = year;
+        this.bif = bif;
+        this.chassisNo = chassisNo;
+        this.make = make;
+        this.remarks = remarks;
+        this.status = status;
+        this.user = user;
+        this.business = business;
+    }
+
     public Long getId() {
         return id;
     }
@@ -44,11 +93,11 @@ public class Vehicle {
         this.id = id;
     }
 
-    public LocalDate getArrDate() {
+    public Date getArrDate() {
         return arrDate;
     }
 
-    public void setArrDate(LocalDate arrDate) {
+    public void setArrDate(Date arrDate) {
         this.arrDate = arrDate;
     }
 
@@ -92,11 +141,11 @@ public class Vehicle {
         this.t1No = t1No;
     }
 
-    public LocalDate getT1Date() {
+    public Date getT1Date() {
         return t1Date;
     }
 
-    public void setT1Date(LocalDate t1Date) {
+    public void setT1Date(Date t1Date) {
         this.t1Date = t1Date;
     }
 
@@ -108,11 +157,11 @@ public class Vehicle {
         this.im7No = im7No;
     }
 
-    public LocalDate getIm7Date() {
+    public Date getIm7Date() {
         return im7Date;
     }
 
-    public void setIm7Date(LocalDate im7Date) {
+    public void setIm7Date(Date im7Date) {
         this.im7Date = im7Date;
     }
 
@@ -156,11 +205,11 @@ public class Vehicle {
         this.year = year;
     }
 
-    public Boolean getBif() {
+    public Double getBif() {
         return bif;
     }
 
-    public void setBif(Boolean bif) {
+    public void setBif(Double bif) {
         this.bif = bif;
     }
 
@@ -170,6 +219,14 @@ public class Vehicle {
 
     public void setChassisNo(String chassisNo) {
         this.chassisNo = chassisNo;
+    }
+
+    public String getMake() {
+        return make;
+    }
+
+    public void setMake(String make) {
+        this.make = make;
     }
 
     public String getRemarks() {
@@ -202,32 +259,5 @@ public class Vehicle {
 
     public void setBusiness(Business business) {
         this.business = business;
-    }
-
-    @Override
-    public String toString() {
-        return "Vehicle{" +
-                "id=" + id +
-                ", arrDate=" + arrDate +
-                ", hsCode='" + hsCode + '\'' +
-                ", irNo='" + irNo + '\'' +
-                ", keyNo='" + keyNo + '\'' +
-                ", specCode='" + specCode + '\'' +
-                ", t1No='" + t1No + '\'' +
-                ", t1Date=" + t1Date +
-                ", im7No='" + im7No + '\'' +
-                ", im7Date=" + im7Date +
-                ", importer='" + importer + '\'' +
-                ", clearAgent='" + clearAgent + '\'' +
-                ", bodyDesc='" + bodyDesc + '\'' +
-                ", cc='" + cc + '\'' +
-                ", year=" + year +
-                ", bif=" + bif +
-                ", chassisNo='" + chassisNo + '\'' +
-                ", remarks='" + remarks + '\'' +
-                ", status='" + status + '\'' +
-                ", user=" + user +
-                ", business=" + business +
-                '}';
     }
 }

@@ -18,6 +18,7 @@ public class UserService {
     public User save(User user){
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
+        user.setStatus("1");
 
         Authority authority = new Authority();
         authority.setAuthority("ROLE_USER");
