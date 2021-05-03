@@ -5,17 +5,27 @@
 <div data-layout-fragment="content">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h5 class="mb-0 text-gray-800">Inbond Stock</h5>
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                class="fas fa-plus fa-sm text-white-50"></i>Get Report</a>
+        <form class="row g-3">
+            <div class="col-auto">
+                <input type="date" class="form-control sm" placeholder="Password">
+            </div>
+            <div class="col-auto">
+                <input type="date" class="form-control sm" placeholder="Password">
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary btn-sm">filter</button>
+            </div>
+        </form>
     </div>
     <hr>
     <div>
             <table class="display nowrap" id="inbond" width="100%">
                 <thead>
                 <tr>
+                    <th>Sno.</th>
                     <th>Arrival Date</th>
                     <th>Chassis No.</th>
-                    <th>T1 No.</th>
+                     <th>T1 No.</th>
                     <th>T1 Date</th>
                     <th>Importer</th>
                     <th>Make</th>
@@ -26,7 +36,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="vehicle :${vehicles}">
+                <tr th:each="vehicle,iterationStatus :${vehicles}">
+                    <td th:text=${iterationStatus.count}></td>
                     <td th:text="${vehicle.arrDate}"></td>
                     <td th:text="${vehicle.chassisNo}"></td>
                     <td th:text="${vehicle.t1No}"></td>
@@ -36,158 +47,12 @@
                     <td th:text="${vehicle.bodyDesc}"></td>
                     <td th:text="${vehicle.cc}"></td>
                     <td th:text="${vehicle.bif}"></td>
-<!--                    <td><button class="btn btn-sm btn-primary">Release</button></td>-->
-                    <td>
-                        <div class="dropdown no-arrow">
-                            <button class="btn btn-primary btn-sm dropdown-toggle" type="button"
-                                    id="actionBtn" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">...
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="actionBtn">
-                                <a class="dropdown-item " data-toggle="modal" data-target="#editVehicle" href="#">Edit</a>
-                                <a class="dropdown-item" href="#">Delete</a>
-                                <a class="dropdown-item" href="#">Release</a>
-                            </div>
-                        </div>
-                    </td>
+                    <td><a class="editBtn btn btn-sm btn-primary" th:href="@{'/inbond/' +${vehicle.id}}">Edit</a></td>
                 </tr>
                 </tbody>
             </table>
-        <form class="user" action="#" th:action="@{/receive}" th:object="${vehicle}" method="post">
-        <div class="modal" id="editVehicle" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Edit Vehicle</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-
-                        <div class="col-lg-12">
-
-                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                                <div th:if="${invalidMessage}" class="col-md-12">
-                                    <div class="alert alert-danger alert-dismissible fade show">
-                                        <button type="button" class="close" data-dismiss="alert">×</button> <strong>Oh snap!</strong> <a href="#" class="alert-link">Vehicle Already exists.</a></div>
-                                </div>
-                                <div th:if="${trueMessage}" class="col-md-12">
-                                    <div class="alert alert-success alert-dismissible fade show">
-                                        <button type="button" class="close" data-dismiss="alert">×</button> <strong>Well done!</strong> Vehicle saved successfully<a href="#" class="alert-link">this important alert message</a>. </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label>Arrival Date.</label>
-                                        <input type="date" th:field="*{arrDate}" class="form-control" required>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <label>HS Code.</label>
-                                        <input type="text" th:field="*{hsCode}" class="form-control">
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <label>IR No.</label>
-                                        <input type="text" th:field="*{irNo}" class="form-control">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label>Key No.</label>
-                                        <input type="text" th:field="*{keyNo}" class="form-control">
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <label>Spec Code.</label>
-                                        <input type="text" th:field="*{specCode}" class="form-control">
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <label>T1 No.</label>
-                                        <input type="text" th:field="*{t1No}" class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label>T1 Date.</label>
-                                        <input type="date" th:field="*{t1Date}" class="form-control" required>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <label>IM7 No.</label>
-                                        <input type="text" th:field="*{im7No}" class="form-control">
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <label>IM7 Date</label>
-                                        <input type="date" th:field="*{im7Date}" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label>Importer.</label>
-                                        <select class="form-control" th:field="*{importer}" required>
-                                            <option value="Choose..."> Choose...</option>
-                                            <option value="United Logistics"> United Logistics</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <label>Clearing Agent</label>
-                                        <input type="text" th:field="*{clearAgent}" class="form-control" required>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <label>Chasiss No.</label>
-                                        <input type="text" th:field="*{chassisNo}" class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label>Body shape</label>
-                                        <select class="form-control" th:field="*{bodyDesc}" required>
-                                            <option value="Choose..."> Choose...</option>
-                                            <option value="Isuzu Canter">Isuzu Canter</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <label>Cc</label>
-                                        <input type="text" th:field="*{cc}" class="form-control">
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <label>Year of Manufacture.</label>
-                                        <input type="date" th:field="*{year}" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-6">
-                                        <label>BIF.</label>
-                                        <input type="number" th:field="*{bif}" class="form-control" required>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label>Vehicle Make.</label>
-                                        <input type="text" th:field="*{make}" class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-12">
-                                        <label>Remarks</label>
-                                        <textarea maxlength="100" th:field="*{remarks}" class="form-control"></textarea>
-                                    </div>
-                                </div>
-
-
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-success">Save changes</button>
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-        </form>
-
     </div>
     <hr>
-
 </div>
 <!-- /.page-inner -->
 </body>

@@ -1,5 +1,6 @@
 package com.enclave.businesslogic.service;
 
+import com.enclave.businesslogic.domain.Business;
 import com.enclave.businesslogic.domain.Vehicle;
 import com.enclave.businesslogic.repository.VehicleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,14 @@ public class VehicleService {
         return vehicleRepo.getVehiclesByBusinessId(id);
     }
 
+    public List<Vehicle> findAllVehicleByBusinessAndStatus(Business business, String status){
+        return vehicleRepo.findByBusinessAndStatus(business, status);
+    }
+
     public Optional<Vehicle> getVehicleById(Long id){
         return vehicleRepo.findById(id);
     }
+
 
 
 }
