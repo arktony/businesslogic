@@ -13,7 +13,7 @@
                 <input type="date" class="form-control sm" placeholder="Password">
             </div>
             <div class="col-auto">
-                <button type="submit" class="btn btn-primary btn-sm">filter</button>
+                <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-fw fa-cog"></i></button>
             </div>
         </form>
     </div>
@@ -25,14 +25,14 @@
                     <th>Sno.</th>
                     <th>Arrival Date</th>
                     <th>Chassis No.</th>
-                     <th>T1 No.</th>
+                    <th>T1 No.</th>
                     <th>T1 Date</th>
                     <th>Importer</th>
                     <th>Make</th>
                     <th>Body Desc</th>
                     <th>Cc</th>
                     <th>BIF</th>
-                    <th>..</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -47,7 +47,18 @@
                     <td th:text="${vehicle.bodyDesc}"></td>
                     <td th:text="${vehicle.cc}"></td>
                     <td th:text="${vehicle.bif}"></td>
-                    <td><a class="editBtn btn btn-sm btn-primary" th:href="@{'/inbond/' +${vehicle.id}}">Edit</a></td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-fw fa-cog"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                <li><a class="dropdown-item active" th:href="@{'/inbond/' +${vehicle.id}}">Edit</a></li>
+                                <li><a class="dropdown-item" href="#">Delete</a></li>
+                                <li><a class="dropdown-item" href="#">Release</a></li>
+                            </ul>
+                        </div>
+                    </td>
                 </tr>
                 </tbody>
             </table>

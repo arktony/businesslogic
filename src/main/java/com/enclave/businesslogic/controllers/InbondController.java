@@ -18,6 +18,9 @@ public class InbondController {
     @Autowired
     private VehicleService vehicleService;
 
+
+    // Load all inbond vehicles on request
+
     @GetMapping("/inbond")
     public String goInBond(
             @AuthenticationPrincipal User user,
@@ -26,7 +29,6 @@ public class InbondController {
             BindingResult bindingResult
     ){
         List<Vehicle> allVehicles;
-//        allVehicles =vehicleService.getAllVehiclesByBusinessId(user.getBusiness().getId());
         allVehicles = vehicleService.findAllVehicleByBusinessAndStatus(user.getBusiness(), "1");
         model.put("vehicles", allVehicles);
         model.put("user", user);
@@ -34,6 +36,9 @@ public class InbondController {
         model.addAttribute("InbondActive","active");
         return "inbond";
     }
+
+
+    //Get an individual Vehicle on request
 
     @RequestMapping(path = "/inbond/{id}", method= RequestMethod.GET)
     public String getVehicle(@PathVariable Long id, ModelMap model, @AuthenticationPrincipal User user) {
@@ -46,11 +51,12 @@ public class InbondController {
             model.addAttribute("InbondActive","active");
             System.out.println(vehicle.getId() +" ---- "+vehicle.getYear());
         }else {
-//           response.sendError(HttpStatus.NOT_FOUND.value(),"Vehicle with id" + id + "was not found");
             return "inbond";
         }
         return "vehicle";
     }
+
+    // Update an individual vehicle
 
     @RequestMapping(path = "/inbond/{id}", method= RequestMethod.POST)
     public String updateVehicle(@PathVariable("id") Long id, @AuthenticationPrincipal User user, Vehicle vehicle, ModelMap model) {
